@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: student-course
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.6.66:3306/stage04
+    username: root
+    password: 1234
+  redis:
+    host: 192.168.6.66
+    port: 6379
+    password: 1234
+    database: 0
+    lettuce:
+      pool:
+        max-wait: -1  #最长等待时间
+        min-idle: 2   #最小连接数
+        max-idle: 10  #最大连接数
+        max-active: 5  #最大活动数
+  rabbitmq:
+    host: 192.168.6.66
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        concurrency: 1
+        max-concurrency: 1
+        acknowledge-mode: manual
+        prefetch: 1
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.woniuxy.common.entity
+  mapper-locations: classpath*:/mapper/*.xml
+
+server:
+  port: 8081
+
+alipay:
+  appId: 9021000132639744
+  appPrivateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCoru+jccjI59tfPFYZgxrVsUCJvwVyf16+mzcM9j0G0gSMDfS/7tOJ8P3uaEfNMJnzqnSSeEISJzHc4NsGp2kwVgA/K1CCDD6/+LTmQmHNUs5ZG3XOvKRiiBl4tvJq3hVqHK9ZTM3kuylhRuDNCsQaUIlzaFKF2Zau7RZtdZFfeapNzwNdni4U5REC9qHPlRB6ek8HItmq3ABqqYOk07e13ms2aicNbDUSYgKuKOIfWAHgnbh2fuh1DGcq/0wGUygC2vFJJNjS8YEAbx4wdh1a2toeAYOcsoRl8FO99AjE0oVrUFYYcRcl4D9CvjhwbavAHWHQiv/bZB3wkIMuSXwjAgMBAAECggEBAJOiYEyt1qy3+NE2jqjPjVoAQ9sLW+olPjgWwyzOCwWAJMirok2l6nEtgiH6FPWqluOjiVl0dWdL9KE8D5aYSUEr1BV1hIX9z6HXPATXjp/U3JMyrH4frsQqGBkGDc+oxhdUOcgvp3iMsp/YGAJ9bLsXR+XBJZDOqso46Ust/ekPtwca2ofAeXvbZYu5ZP4npn4c1afOA3wetprcgLEOuI1qM1DBC6Dn1+3sahFlk8k7l98tygr9VEZZ2rmDx8jUnLMz3+/EIgwF11po5sedk4R8p+G0ihT13uniTBCdG8EG8nCnoX0Q828eaiaUGexI3IMYaO+HB/ZW+JBhSklcnIkCgYEA4iT3SrQQznG+QTAUobNDjJ5I7EDRIxaHa1DrKoIVNHcfG/Jyrj9cLY+VGdOFZaVmhsDMfT3PPIkP3zwycf2W4OXaYpRBICFdwAgpWmQAy9nhPVksDGMVZovxIfKcXQDGWyh09FOOLgqyGehWXclaBfWlzg/4b7FH+zz75NNGkLUCgYEAvvPzZhU/TJiegsbC4WAI0SGTOQ89NVX5rKU5dNTSHc6HG1ZaZlB/5ewsUVUAROlPTd1k7IGjgQGC8SGele7iIIs5qZSkqI8NDP0uSbnBl6w0O9nEubtyMN63x8cdeGLDBXt9OQ2sZC9uGww/FfPOwX5gMLYiKEZbdpIidBiGWHcCgYA3h/ZFnNPnrdyXK1RVpKx4skGb6gqxAA4+1v74UDseyAWWmkF48kwTUAe/8MX4ANadTmiodG4YIlwIaELG5QuQrEClJlybpDXeOuLUtGvRou4BX41GeWo+5SxQNsAYwmDy74tQl9f5DF1RqVDT9OarQff2EsvhuXnAgugj95GDZQKBgAKKbGqnTbhPL4y96EnnZTajI7pWoZHcGv5ZFHKhgkozPUj31SwXVhxRECXk46QHFq8KixU6hFprErryn5GPJCMatyGygJ5diObrV3pTpmfGOsuxEhUGkXZlAD0AQTwg1Ed2ZSwlKm4K04Q4nX5FSDL643zCb6Hpjb3+I8c3rFHxAoGAERxTPO4h4jSBs34w2G7K+s3qcQq4nYnrLqXRk0FBHgR8hpUZAPdHmFMMfR4UYIvOvuW9fstk47wpEEWGEscqfihxb9H9OdKSxHNziy0BXUS6TsRFV2O/ZZL/ayozltg0MQcWHeubL4fnDgET5+IyFcphWCViE0W0o72rwORGphY=
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmeUCwTIf9mzXtxfu/1rVGXclGDh1MpeD6cI/urzDJo+QbQkR3AaHuqxxBhssy+Qgd9VKbHjRjmmpl9ciX5If6UhY90qIQvHpj7gyJWp4FpZ/QSX7LaVRGo+5mbyKfcVS5x6zNMS8LUJ78XNQuwbgebJDQwQzfF3L+x1/lSd5fuF+dWpT6JbvMjRutheHR6ck2HA7OXkn+qufINVfaBymuBrFi2KTmQT3BfbryF+6i+IYpygRAZH2rIYoUzWRJrxhiYQYa6i1d1Ip8udOs4bMdl+Bp7gASprwlbwInbQUyVVvHNO6PWNnXpTX3jbCeIWIR1BgBPHLzsMqyCqlq2soywIDAQAB
+  notifyUrl:  http://v6rm4t.natappfree.cc/alipay/notify
+  returnUrl:  http://localhost:8080/electiveCoursePay

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace命名空间:对应的接口的全美名-->
+<mapper namespace="com.woniuxy.course.mapper.ExaminationMapper">
+    <!--id利对应mapper接口中的方法名一样-->
+    <select id="selectAllExamination" resultMap="getAllExamination">
+        SELECT DISTINCT
+            es.exam_schedule_id,
+            es.exam_time,
+            es.academic_year,
+            es.semester,
+            c1.class_id,
+            c1.major_id,
+            c2.course_name,
+            fm.id AS faculty_major_id,
+            fm.name AS faculty_major_name,
+            cr.classroom_id,
+            cr.building,
+            cr.numbers
+        FROM
+            exam_schedule es
+                JOIN
+            classes c1 ON es.class_id = c1.class_id
+                JOIN
+            faculty_major fm ON c1.major_id = fm.id
+                JOIN
+            major_course mc ON fm.id = mc.major_id
+                JOIN
+            course c2 ON es.course_id = c2.course_id
+                JOIN
+            classroom cr ON es.classroom_id = cr.classroom_id
+                JOIN
+            student s ON s.class_id = c1.class_id;
+    </select>
+    <resultMap id="getAllExamination" type="ExamSchedule">
+        <id property="examScheduleId" column="exam_schedule_id"/>
+        <result property="examTime" column="exam_time"/>
+        <result property="academicYear" column="academic_year"/>
+        <result property="semester" column="semester"/>
+        <association property="classes" javaType="Classes">
+            <id property="classId" column="class_id"/>
+        </association>
+        <association property="course" javaType="Course">
+            <id property="courseId" column="course_id"/>
+            <result property="courseName" column="course_name"/>
+        </association>
+        <association property="classRoom" javaType="ClassRoom">
+            <id property="classroomId" column="classroom_id"/>
+            <result property="building" column="building"/>
+            <result property="numbers" column="numbers"/>
+        </association>
+    </resultMap>
+</mapper>

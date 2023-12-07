@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace命名空间：对应的接口的全类名-->
+<mapper namespace="com.woniuxy.grades.mapper.SchoolRollStausMapper">
+    <!--id和对应的mapper接口中的方法名一样-->
+    <select id="selectSchoolRollBy" resultType="com.woniuxy.grades.pojo.vo.SchoolRollVO">
+        select srt.type,srt.`status`,srt.submission_time,srt.approval_time from school_roll_status srt
+        <where>
+         srt.student_id=#{studentId}
+        <if test="type!=null">
+         and srt.type=#{type}
+        </if>
+        <if test="minSubmissionTime != null">
+            and srt.submission_time >= #{minSubmissionTime}
+        </if>
+        <if test="maxSubmissionTime != null">
+            and srt.submission_time &lt;= date_add(#{maxSubmissionTime},interval 1 day)
+        </if>
+        </where>
+    </select>
+</mapper>

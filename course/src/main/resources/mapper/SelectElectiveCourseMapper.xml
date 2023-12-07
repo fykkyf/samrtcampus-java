@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace命名空间:对应的接口的全美名-->
+<mapper namespace="com.woniuxy.course.mapper.SelectElectiveCourseMapper">
+    <!--id利对应mapper接口中的方法名一样-->
+    <select id="selectAllElectiveCourse" resultType="ElectiveCourse">
+        select * from elective_course;
+    </select>
+
+    <select id="selectElectiveCourse" resultMap="getElectiveCourse">
+        select * from elective_course e where e.quantity > 0
+        <if test="keyword!=null">
+            and e.elective_course_name like concat('%',#{keyword},'%')
+        </if>
+        <if test="timeFrom!=null">
+            and e.start_time >= #{timeFrom}
+        </if>
+        <if test="timeTo!=null">
+            and e.end_time &lt;= #{timeTo}
+        </if>
+    </select>
+    <resultMap id="getElectiveCourse" type="ElectiveCourse">
+        <id column="ecid" property="ecid"/>
+        <result column="elective_course_name" property="electiveCourseName"/>
+        <result column="credit" property="credit"/>
+        <result column="period" property="period" />
+        <result column="amount" property="amount"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+    </resultMap>
+
+    <insert id="choiceElectiveCourse">
+        insert into academic_payment values (null,null,#{sid},"选修",#{ecid},null,#{amount},now(),null,"未缴费")
+    </insert>
+
+    <select id="selectAcademicPayment" resultMap="getAcademicPayment">
+        select ap.id,ap.alipay_no,ap.type,ec.elective_course_name,ap.amount,ap.create_time,ap.pay_time,ap.status from academic_payment ap,elective_course ec
+               where ap.student_id = #{sid} and ec.ecid = ap.elective_course_id
+    </select>
+    <resultMap id="getAcademicPayment" type="AcademicPayment">
+        <id column="id" property="id"/>
+        <result column="alipay_no" property="alipayNo"/>
+        <result column="type" property="type"/>
+        <result column="amount" property="amount" />
+        <result column="create_time" property="createTime"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="status" property="status"/>
+        <association property="electiveCourse" javaType="ElectiveCourse">
+            <id property="ecid" column="ecid"/>
+            <result property="electiveCourseName" column="elective_course_name"/>
+        </association>
+    </resultMap>
+
+</mapper>

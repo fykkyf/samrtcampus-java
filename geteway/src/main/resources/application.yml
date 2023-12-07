@@ -1,0 +1,64 @@
+server:
+  port: 1001
+
+mybatis:
+  type-aliases-package: com.woniuxy.common.entity
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.6.66:3306/stage04?serverTimezone=UTC
+    username: root
+    password: 1234
+  application:
+    name: school-gateway
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: localhost:8848
+        namespace: 055cad9a-c318-42c9-9200-bb1878e4bde7
+        group: school-group
+        server-addr: 192.168.6.107:8848
+
+    gateway:
+      globalcors:  #网关统一跨域配置
+        add-to-simple-url-handler-mapping: true  #OPTIONS
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"  #所有网址都放行
+            allowedMethods:  #支持请求的类型
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+
+      routes:     #配置路由
+        - id: school-grades   #路由id,一般使用微服名
+          uri: lb://school-grades #映射路径，转发路径   http://localhost:8081/student/1
+          predicates:
+            - Path=/schoolroll/**,/grade/**     #请求路径    http://localhost:1011/student/1
+
+
+        - id: school-login   #路由id,一般使用微服名
+          uri: lb://school-login    #映射路径，转发路径   http://localhost:8081/student/1
+          predicates:
+            - Path=/school/**    #请求路径    http://localhost:1011/student/1
+
+#        - id: student-consumer   #路由id,一般使用微服名
+#          uri: lb://student-consumer    #映射路径，转发路径   http://localhost:7071/studentconsumer/1
+#          predicates:
+#            - Path=/studentconsumer/**     #请求路径    http://localhost:1011/studentconsumer/1
+##            - After=2023-11-07T11:08:50.825+08:00[Asia/Shanghai]  #路由断言 在这个点之后才能生效
+##            - Cookie=chocolate, ch.p
+##            - Header=h1,\d+  请求头中含有的条件
+##          filters:
+##           - AddRequestHeader=h2,blue  #经过网关，添加请求头
+##eureka:
+##  client:
+##    service-url:
+##      defaultZone: http://localhost:6061/eureka

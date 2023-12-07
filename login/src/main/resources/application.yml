@@ -1,0 +1,53 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.6.66:3306/stage04?serverTimezone=UTC
+    username: root
+    password: 1234
+
+  redis:
+    host: 192.168.133.51
+    port: 6379
+    password: 123
+    database: 0
+    lettuce:
+      pool:
+        max-wait: -1  # 最长等待时间
+        min-idle: 2   # 最小连接数
+        max-idle: 10   # 最da连接数
+        max-active: 5 # 最大活动数
+
+  rabbitmq:
+    host: 192.168.133.51
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: manual
+
+  main:
+    allow-circular-references: true
+
+  application:
+    name: school-login
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 055cad9a-c318-42c9-9200-bb1878e4bde7
+        group: school-group
+mybatis:
+  type-aliases-package: com.woniuxy.common.entity
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com.woniuxy.login.mapper: debug
+  file:
+    name: applog/sys.log

@@ -1,0 +1,44 @@
+server:
+  port: 8084
+spring:
+  datasource:
+    driver-class-name:
+    url: jdbc:mysql://192.168.6.66:3306/stage04?serverTimezone=UTC
+    username: root
+    password: 1234
+
+  redis:
+    host: 192.168.133.51
+    port: 6379
+    password: 123
+    database: 0
+    lettuce:
+      pool:
+        max-wait: -1  # 最长等待时间
+        min-idle: 2   # 最小连接数
+        max-idle: 10   # 最da连接数
+        max-active: 5 # 最大活动数
+
+  main:
+    allow-circular-references: true
+  application:
+    name: school-grades
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 055cad9a-c318-42c9-9200-bb1878e4bde7
+        group: school-group
+
+mybatis:
+  type-aliases-package: com.woniuxy.common.entity
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.woniuxy.grades.mapper: debug
+  file:
+    name: applog/sys.log

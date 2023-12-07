@@ -1,0 +1,55 @@
+server:
+  port: 8080
+#  port: ${port:5051}
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.6.66:3306/stage04
+    username: root
+    password: 1234
+  application:
+    name: school-pay
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.6.107:8848
+        namespace: 055cad9a-c318-42c9-9200-bb1878e4bde7
+        group: school-group
+#  application:
+#    name: alibaba-student-provider
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+#        namespace: efaf7567-8399-4a51-9d7b-e0589dbd5e30
+#        group: TEST_GROUP
+#        cluster-name: ${cluster-name:cd}
+
+#mybatis:
+#  type-aliases-package: com.woniuxy.common.entity
+#  mapper-locations: classpath:/mapper/*Mapper.xml
+
+logging:
+  level:
+    com.woniu.student.provider.mapper: debug
+
+mybatis-plus:
+  type-aliases-package: com.woniuxy.common.entity
+
+
+alipay:
+  appId: 9021000132626031
+  appPrivateKey: MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQDPpHSoCI7veoNY+6p13UDJrtxLEv0riakrFlRMj0r7TusFfPZk0zvzhxCLanvOt7kCohCb68LxWgnCNNHWs7dKYjGgXUm9kbK0NvCU2EJk0Uz13Z/3MP+tsk8ewtkDci86nVHijPARrMMFjNhuyihBiRRRcmupQviKaQBnlS6b4Sacdbup1LeIrhUiMHrKJq03eXSEaoZl5wQAEsC8QsAtSo2B5y/0/WLVgN1YhqHF3gCdBpwvpAC7ZT0Mz4SvYTEIhMNJ5J+tComyf5Ei3DPjxRyiJeLjoFjXPhfZJZg7xKKmbhhP091A73vvg1BC5ggbEV/sQvWT6iF8i2PzM5XNAgMBAAECggEBAIMGqKJb/C475eRhsnf7rOVXlSU+j0lI7doFlh5VkaAxdXaaGzUWYk9S3GrNP+D66CE0OTzascHw6hWFlSBheXjTq7MhCuY3qUe1H20dZhAOTv0a49VtMvndebXUiHJ3PDxFh6VpABh3Jv06mlyW7n4kTRD0HeHKI+HbTmkOp0Gu1w3y94yCvRzbvj+Mo1myRGyPlu/tfMzksFNDoXAFgdLCz21JGt9Znohg5vP+b5+gz7bj7E8r4O4DfhU0LPUFnQhlXyBaYd/yCqapBA9kNP5jTEkxF3eve3SEZdJTXN5Rsoy7JvlqMSkn2JcLX6DXmG3DYq9k5+vcHtnTi53IF8ECgYEA+IbmcyiVvxqtforFQ5mYgDOZm9u8TZQDnsB39R5EPI1TJ2z9KBm62mR1iuoE5kb20Vsc/lanP3GudyvJxsjRKVT1vWXd/uBadXmsi0CyUneM2UtcUlDzmxiuzms7A6T7DducjJ/dAbb2CHRiO7C+P1JCfoMR+VDPLHVH9CLby90CgYEA1eLWEowW8Kg8QYQuF9iZhzJQYHPQD1FWX3LMewiwy72AquYRoQuMIuuteZYCyLYscIk7uToLPvOnW8dxR1x9lSftfXCHvnrjwH/9dyausoPfAc/GRgsG5u9FqdhVK4kMMiWpwAEZfR9PK3hIKv8+6Nw/MDvAOIt1EjjgUjKJCrECgYEAvOkN0wtOiG0m48FoIPJn0Utnv+lPQUj5V3rFtDTFeaGTS6y04f5s4gTqtCUehEv84TZ423vStY8cJsnKHqgXFWvXP5hnHo47NIDAfzk2Uyk8jw+RpaCTC5m/hnhL64FEtEvyu5Ho1JzWd6a/5M98TXWhxbiruO+MCyc7AoBcwqECgYEAplu+ocJwfVJ9O4Ax0b5Y+7z4o2yw4ZkkEy1ZOkDyMiX9E+/KunYe03J4BV/WXoLDYex7lYA+CwK8ozgnNZgM3ZymrbB/BHrU9n8WiDyAGL1VETWoRAaDoc9tYcOvyyLXZ5G/zGWOi7F0hJ0TlM3fAoN8ammvAswFjNzMLWK9EKECgYEAuIHRSRTAcSZ7DOfKmjAZG4DDtQlEUYo8J6gZYE4KtaIMFiktTrFOs95TCWgj7uILsmCVRuNNRa6kB61fk1wQ/XoWFBYq+gyggJTzcNWYrEl62OtfU0g7dJoM4NRwf4UkQGTibZn0KnbCZ1YSg8gWC0gRCy1GTodiXY1m4N1uKNs=
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi/Slx25pg3baQ6xBFSpNOPGZ8d1cSxCNabuVrVRb598EUaZlKrwg2mMlPJ574AcmhYqkY/6ovsKtK/xLNP3CSTwFmM581w7SxRRUAhuvfey5f/fthoBKOpOAZ0ULf17j1pwp0A7X4QQZ5i27ppjRlGSfimqdnALfbJHTJeABZX5RHMzNiVByjcwMeAj7JiQTBlbyR5OpcjuKBgCJiibpWSDk+48t1xDg8DxweqB4RvvSiTdrJ/QN8HqpZj9lv736U6M4iPplYVXauqbhOdFoWORxRSE0CEIP+fBLIyzbSvcuHfPf/elEQch39EsXWihty7tzcilPRMb/hs9IYdddCQIDAQAB
+  notifyUrl: http://x58wyk.natappfree.cc/alipay/notify
+  returnUrl: http://localhost:8081/workSpace
+#  returnUrl: ${returnUrl}
+
+
+##ribbon负载均衡算法，默认是轮询
+#alibaba-student-provider: #调用服务名
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.alibaba.clod.nacos.ribbon.NacosRule #指定轮询算法
+#
+#testconfig: 5051-aaa
