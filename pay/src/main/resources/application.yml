@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.6.66:3306/stage04
     username: root
-    password: 1234
+    password: fykkyf1223
   application:
     name: school-pay
   cloud:
